@@ -1,0 +1,64 @@
+{
+  "name": "ai-daily-tasks",
+  "displayName": "AI Daily Tasks",
+  "description": "Generate daily completed tasks from your git commits and code diffs using an LLM.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "activationEvents": [
+    "onCommand:ai-daily-tasks.generate",
+    "onCommand:ai-daily-tasks.generateFromRange"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run build",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/node-fetch": "^2.6.13",
+    "@types/vscode": "^1.70.0",
+    "@vscode/test-electron": "^2.3.0",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-daily-tasks.generate",
+        "title": "AI: Generate Daily Tasks from Git"
+      },
+      {
+        "command": "ai-daily-tasks.generateFromRange",
+        "title": "AI: Generate Tasks for Commit Range"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "AI Daily Tasks",
+      "properties": {
+        "aiDailyTasks.openAIApiKey": {
+          "type": "string",
+          "description": "OpenAI API key (or set as environment variable OPENAI_API_KEY).",
+          "default": ""
+        },
+        "aiDailyTasks.model": {
+          "type": "string",
+          "description": "LLM model to use (chat-compatible).",
+          "default": "gpt-4o-mini"
+        },
+        "aiDailyTasks.since": {
+          "type": "string",
+          "description": "Git log since argument (e.g. '24 hours ago' or '2025-11-15').",
+          "default": "24 hours ago"
+        }
+      }
+    }
+  }
+}
