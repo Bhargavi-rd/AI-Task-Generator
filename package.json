@@ -1,64 +1,77 @@
 {
-  "name": "ai-daily-tasks",
-  "displayName": "AI Daily Tasks",
-  "description": "Generate daily completed tasks from your git commits and code diffs using an LLM.",
-  "version": "0.1.0",
-  "engines": {
-    "vscode": "^1.70.0"
-  },
-  "activationEvents": [
-    "onCommand:ai-daily-tasks.generate",
-    "onCommand:ai-daily-tasks.generateFromRange"
-  ],
-  "main": "./out/extension.js",
+  "name": "ai-task-generator-api",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
-    "vscode:prepublish": "npm run build",
-    "build": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run build",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/node-fetch": "^2.6.13",
-    "@types/vscode": "^1.70.0",
-    "@vscode/test-electron": "^2.3.0",
-    "typescript": "^4.9.0"
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "node-fetch": "^2.6.7"
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.1",
+    "@nestjs/core": "^11.1.9",
+    "@nestjs/platform-express": "^11.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "node-fetch": "^2.7.0",
+    "reflect-metadata": "^0.2.1",
+    "rxjs": "^7.8.1"
   },
-  "contributes": {
-    "commands": [
-      {
-        "command": "ai-daily-tasks.generate",
-        "title": "AI: Generate Daily Tasks from Git"
-      },
-      {
-        "command": "ai-daily-tasks.generateFromRange",
-        "title": "AI: Generate Tasks for Commit Range"
-      }
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@swc/cli": "^0.6.0",
+    "@swc/core": "^1.10.7",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.7",
+    "@types/supertest": "^6.0.2",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.4.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
     ],
-    "configuration": {
-      "type": "object",
-      "title": "AI Daily Tasks",
-      "properties": {
-        "aiDailyTasks.openAIApiKey": {
-          "type": "string",
-          "description": "OpenAI API key (or set as environment variable OPENAI_API_KEY).",
-          "default": ""
-        },
-        "aiDailyTasks.model": {
-          "type": "string",
-          "description": "LLM model to use (chat-compatible).",
-          "default": "gpt-4o-mini"
-        },
-        "aiDailyTasks.since": {
-          "type": "string",
-          "description": "Git log since argument (e.g. '24 hours ago' or '2025-11-15').",
-          "default": "24 hours ago"
-        }
-      }
-    }
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }
